@@ -1,0 +1,51 @@
+{
+  "name": "projeto-final",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "version": "1.0.0",
+  "description": "O projeto Carango Bom é um sistema de gerenciamento de veículos, no qual os administradores de uma concessionária cadastram veículos para venda. Os clientes, então, conseguem ver todos os veículos disponíveis e os detalhes de cada um.",
+  "keywords": [
+    "nextjs",
+    "nestjs",
+    "frontend",
+    "backend",
+    "monorepo",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "license": "ISC",
+  "author": "Whallyson Freire <whallyson.freire.ter@estacio.br>",
+  "collaborators": [
+    "Fernando Moller <fernando.moller@yduqs.com.br>",
+    "Raimundo Viana <raimundo.viana@yduqs.com.br>"
+  ],
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    
+    "start": "npm-run-all --parallel start:backend start:frontend",
+    "start:backend": "npm run start --prefix backend",
+    "start:frontend": "npm run start --prefix frontend",
+    "build": "npm-run-all --parallel build:backend build:frontend",
+    "build:backend": "npm run build --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "lint": "npm-run-all --parallel lint:backend lint:frontend",
+    "lint:backend": "npm run lint --prefix backend",
+    "lint:frontend": "npm run lint --prefix frontend",
+
+    "start:dev": "npm-run-all --parallel start:dev:backend start:dev:frontend",
+    "start:dev:backend": "npm run start:dev --prefix backend",
+    "start:dev:frontend": "npm run start:dev --prefix frontend"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.3"
+  }
+}
