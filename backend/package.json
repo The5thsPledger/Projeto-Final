@@ -39,20 +39,26 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "@nestjs/cache-manager": "2.0.1",
-    "@nestjs/common": "^9.4.3",
-    "@nestjs/config": "^2.3.1",
-    "@nestjs/core": "^9.0.0",
-    "@nestjs/platform-express": "^9.0.0",
-    "@nestjs/typeorm": "^9.0.1",
-    "cache-manager": "^4.1.0",
-    "cache-manager-redis-store": "^2.0.0",
+    "@keyv/redis": "^4.3.4",
+    "@nestjs/cache-manager": "3.0.1",
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^11.1.0",
+    "@nestjs/platform-express": "^11.1.0",
+    "@nestjs/typeorm": "^11.0.0",
+    "cache-manager": "^6.4.2",
+    "cache-manager-redis-store": "^3.0.1",
+    "cacheable": "^1.8.10",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "pg": "^8.9.0",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0",
-    "typeorm": "^0.3.12"
+    "express": "^5.1.0",
+    "pg": "^8.15.6",
+    "reflect-metadata": "^0.2.2",
+    "rimraf": "^6.0.1",
+    "rxjs": "^7.8.2",
+    "typeorm": "^0.3.22"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1"
   }
 }
