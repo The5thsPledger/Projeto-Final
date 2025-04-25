@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConfigService } from './config/postgres.config.service';
 import { CacheModule } from '@nestjs/cache-manager';
-import redisStore from 'ioredis';
+import redisStore from 'cache-manager-redis-store';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
+    UsuarioModule,
+    
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -16,18 +17,13 @@ import redisStore from 'ioredis';
       useClass: PostgresConfigService,
       inject: [PostgresConfigService],
     }),
-    CacheModule.registerAsync({
-      useFactory: async () => {
-        const store = new redisStore(Number(process.env.REDIS_PORT), String(process.env.REDIS_HOST));
-        return {
-          store: store,
-          ttl: 1000 * 60 * 5, // 5 minutes
-        };
-      },
+    CacheModule.register({
+      store: redisStore,
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+      ttl: 5 * 1000 * 60,
       isGlobal: true,
-    })
+    }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

@@ -4,7 +4,7 @@ import { useContainer } from 'class-validator';
 import { ValidationPipe } from '@nestjs/common';
 import { CustomExceptionFilter } from './exception.filter';
 
-async function bootstrap() {
+export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
