@@ -1,11 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { VeiculoEntity } from './veiculo.entity';
-import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CriaVeiculoDTO } from './dto/CriaVeiculo.dto';
-import { isNumber, isUUID } from 'class-validator';
+import { isUUID } from 'class-validator';
 import { AtualizaVeiculoDTO } from './dto/AtualizaVeiculo.dto';
-import { MarcaEntity } from '../marca/marca.entity';
 
 @Injectable()
 export class VeiculoService {
@@ -59,107 +58,21 @@ export class VeiculoService {
   }
 
   public async listaPorFiltro(idMarca?: string, min?: number, max?: number) {
-    if (idMarca && min && max) {
-      return this.veiculoRepository.find({
-        relations: { 
-          marca: true
-        },
-        where: {
-          marca: {
-            id: idMarca
-          },
-          valor: Between(min, max)
-        },
-        order: {
-          modelo: 'ASC'
-        }
-      });
+    const query = this.veiculoRepository.createQueryBuilder('veiculos')
+      .innerJoinAndSelect('veiculos.marca', 'marcas');
+
+    if (idMarca) {
+      query.andWhere('veiculos.marcaId = :idMarca', { idMarca: idMarca });
     }
-    else if (idMarca && min && !max) {
-      return this.veiculoRepository.find({
-        relations: { 
-          marca: true
-        },
-        where: {
-          marca: {
-            id: idMarca
-          },
-          valor: MoreThanOrEqual(min)
-        },
-        order: {
-          modelo: 'ASC'
-        }
-      });
+
+    if (min) {
+      query.andWhere('veiculos.valor >= :min', { min: min });
     }
-    else if (idMarca && !min && max) {
-      return this.veiculoRepository.find({
-        relations: { 
-          marca: true
-        },
-        where: {
-          marca: {
-            id: idMarca
-          },
-          valor: LessThanOrEqual(max)
-        },
-        order: {
-          modelo: 'ASC'
-        }
-      });
+
+    if (max) {
+      query.andWhere('veiculos.valor <= :max', { max: max });
     }
-    else if (idMarca && !min && !max) {
-      return this.veiculoRepository.find({
-        relations: { 
-          marca: true
-        },
-        where: {
-          marca: {
-            id: idMarca
-          }
-        },
-        order: {
-          modelo: 'ASC'
-        }
-      });
-    }
-    else if (!idMarca && min && max) {
-      return this.veiculoRepository.find({
-        relations: { 
-          marca: true
-        },
-        where: {
-          valor: Between(min, max)
-        },
-        order: {
-          modelo: 'ASC'
-        }
-      });
-    }
-    else if (!idMarca && min && !max) {
-      return this.veiculoRepository.find({
-        relations: { 
-          marca: true
-        },
-        where: {
-          valor: MoreThanOrEqual(min)
-        },
-        order: {
-          modelo: 'ASC'
-        }
-      });
-    }
-    else if (!idMarca && !min && max) {
-      return this.veiculoRepository.find({
-        relations: { 
-          marca: true
-        },
-        where: {
-          valor: LessThanOrEqual(max)
-        },
-        order: {
-          modelo: 'ASC'
-        }
-      });
-    }
+
+    return query.getMany();
   }
 }
