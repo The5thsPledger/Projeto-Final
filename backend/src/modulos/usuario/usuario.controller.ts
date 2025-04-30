@@ -8,7 +8,7 @@ import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
 
 @Controller('/usuarios')
 @Catch()
-@UseGuards(AutenticacaoGuard)
+//@UseGuards(AutenticacaoGuard)
 export class UsuarioController {
   constructor(private usuarioService: UsuarioService) {}
 
