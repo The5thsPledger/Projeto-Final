@@ -2,8 +2,8 @@
   "name": "projeto-final",
   "private": true,
   "workspaces": [
-    "frontend",
-    "backend"
+    "backend",
+    "frontend"
   ],
   "version": "1.0.0",
   "description": "O projeto Carango Bom é um sistema de gerenciamento de veículos, no qual os administradores de uma concessionária cadastram veículos para venda. Os clientes, então, conseguem ver todos os veículos disponíveis e os detalhes de cada um.",

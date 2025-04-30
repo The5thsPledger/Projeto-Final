@@ -17,6 +17,7 @@ import { AutenticacaoModule } from './modulos/autenticacao/autenticacao.module';
     MarcaModule,
     UsuarioModule,
     VeiculoModule,
+    
     ConfigModule.forRoot({
       isGlobal: true,
     }),
