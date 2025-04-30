@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate:generate": "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate src/migrations/Migration -d src/config/data-source.ts",
-    "migrate:run": "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/config/data-source.ts"
+    "migrate:run": "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/config/data-source.ts",
+    "typeorm": "typeorm-ts-node-esm --dataSource dist/db/data-source-cli.js"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -44,8 +45,11 @@
     "@nestjs/common": "^11.1.0",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.0",
+    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.1.0",
     "@nestjs/typeorm": "^11.0.0",
+    "bcrypt": "5.1.0",
     "cache-manager": "^6.4.2",
     "cache-manager-redis-store": "^3.0.1",
     "cacheable": "^1.8.10",
@@ -59,6 +63,8 @@
     "typeorm": "^0.3.22"
   },
   "devDependencies": {
-    "@types/express": "^5.0.1"
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.1",
+    "ts-node": "^10.9.2"
   }
 }

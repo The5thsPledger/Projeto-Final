@@ -51,7 +51,7 @@ export class CustomExceptionFilter implements ExceptionFilter {
           break;
         case 'ER_BAD_DB_ERROR':
           status = 412;
-          msg = 'O bnco de dados não foi reconhecido.';
+          msg = 'O banco de dados não foi reconhecido.';
           break;
         case 'ER_PARSE_ERROR':
           status = 412;

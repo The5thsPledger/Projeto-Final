@@ -29,7 +29,6 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    
     "start": "npm-run-all --parallel start:backend start:frontend",
     "start:backend": "npm run start --prefix backend",
     "start:frontend": "npm run start --prefix frontend",
@@ -39,7 +38,6 @@
     "lint": "npm-run-all --parallel lint:backend lint:frontend",
     "lint:backend": "npm run lint --prefix backend",
     "lint:frontend": "npm run lint --prefix frontend",
-
     "start:dev": "npm-run-all --parallel start:dev:backend start:dev:frontend",
     "start:dev:backend": "npm run start:dev --prefix backend",
     "start:dev:frontend": "npm run start:dev --prefix frontend"
