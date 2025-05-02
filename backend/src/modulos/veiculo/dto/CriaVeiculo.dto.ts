@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsNotEmpty, IsNumber, IsPositive, IsUUID, Max } from 'class-validator';
-import { CriaMarcaDTO } from 'src/modulos/marca/dto/CriaMarca.dto';
+import { CriaMarcaDTO } from '../../marca/dto/CriaMarca.dto';
 
 export class MarcaVeiculoDTO extends PartialType(CriaMarcaDTO) {
   @IsUUID(4, { message: 'Marca não existe' })

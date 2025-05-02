@@ -1,7 +1,7 @@
 import { Body, Catch, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { CriaUsuarioDTO } from './dto/CriaUsuario.dto';
-import { HashearSenhaPipe } from 'src/recursos/pipes/hashear-senha.pipe';
+import { HashearSenhaPipe } from '../../recursos/pipes/hashear-senha.pipe';
 import { ListaUsuarioDTO } from './dto/ListaUsuario.dto';
 import { AtualizaUsuarioDTO } from './dto/AtualizaUsuario.dto';
 import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';

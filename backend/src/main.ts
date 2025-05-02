@@ -1,10 +1,11 @@
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { useContainer } from 'class-validator';
 import { ValidationPipe } from '@nestjs/common';
+import { AppModule } from './app.module';
 import { CustomExceptionFilter } from './exception.filter';
 
-export async function bootstrap() {
+export default async function Bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
@@ -34,13 +35,14 @@ export async function bootstrap() {
       }
       next();
     }
-);
+  );
+  app.useLogger(['log', 'error', 'warn', 'debug']);
   return app;
 }
 
 
 if (require.main === module) {
-  bootstrap().then(async app => {
+  Bootstrap().then(async app => {
     await app.listen(process.env.APP_PORT ?? 3000);
   });
 }

@@ -1,4 +1,7 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { 
+  Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, 
+  PrimaryGeneratedColumn, UpdateDateColumn 
+} from 'typeorm';
 import { VeiculoEntity } from '../veiculo/veiculo.entity';
 
 @Entity({ name: 'marcas' })
@@ -6,7 +9,7 @@ export class MarcaEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'nome' })
+  @Column({ name: 'nome', type: 'varchar', length: 50, nullable: false })
   nome: string;
 
   @OneToMany(() => VeiculoEntity, (veiculo) => veiculo.marca, {
