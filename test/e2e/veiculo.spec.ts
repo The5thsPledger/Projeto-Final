@@ -9,32 +9,32 @@ import { useContainer } from 'class-validator';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { CustomExceptionFilter } from 'backend/src/exception.filter';
 import { App } from 'supertest/types';
-import { MarcaEntity } from 'backend/src/modulos/marca/marca.entity';
 import { v4 as uuidv4 } from 'uuid';
+import { VeiculoEntity } from 'backend/src/modulos/veiculo/veiculo.entity';
 
 let app: INestApplication<any>;
 let server: App;
 let token: any;
 
-const mockMarcaRepository = {
+const mockVeiculoRepository = {
   find: jest.fn().mockImplementation(async () => {
     return [
       {
         id: uuidv4(),
-        nome: 'Marca Teste',
+        nome: 'Veiculo Teste',
         descricao: 'Descricao Teste'
       },
       {
         id: uuidv4(),
-        nome: 'Marca Teste 2',
+        nome: 'Veiculo Teste 2',
         descricao: 'Descricao Teste 2'
       }
     ];
   }),
-  findOne: jest.fn().mockImplementation(async (id: string) => {
+  findOne: jest.fn().mockImplementation(async () => {
     return {
       id: uuidv4(),
-      nome: 'Marca Teste',
+      nome: 'Veiculo Teste',
       descricao: 'Descricao Teste'
     };
   }),
@@ -43,7 +43,7 @@ const mockMarcaRepository = {
   delete: jest.fn().mockResolvedValue({}),
 };
 
-describe('MarcaController (e2e)', () => {
+describe('VeiculoController (e2e)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule]
@@ -51,8 +51,8 @@ describe('MarcaController (e2e)', () => {
         getRepositoryToken(UsuarioEntity)
       ).useValue(mockUsuarioRepoditory)
       .overrideProvider(
-        getRepositoryToken(MarcaEntity)
-      ).useValue(mockMarcaRepository)
+        getRepositoryToken(VeiculoEntity)
+      ).useValue(mockVeiculoRepository)
       .compile();
 
     app = moduleFixture.createNestApplication();
@@ -86,7 +86,7 @@ describe('MarcaController (e2e)', () => {
       }
     );
     app.useLogger(['log', 'error', 'warn', 'debug']);
-    await app.listen(3002);
+    await app.listen(3004);
 
     server = app.getHttpServer()
   });
@@ -109,35 +109,41 @@ describe('MarcaController (e2e)', () => {
       token = response.body.tokenAcesso;
   }, 100000);
 
-  test('POST /api/marcas', async () => {
-    await request(server).post('/api/marcas').set('Authorization', `Bearer ${token}`)
+  test('POST /api/veiculos', async () => {
+    await request(server).post('/api/veiculos').set('Authorization', `Bearer ${token}`)
       .send({
-        nome: 'Marca Teste',
+        modelo: 'Veiculo Teste',
+        ano: 2025,
+        valor: 10000,
+        marca: 'Marca Teste',
       })
       .expect(201);
   });
 
-  test('GET /api/marcas', async () => {
-    await request(server).get('/api/marcas').set('Authorization', `Bearer ${token}`)
+  test('GET /api/veiculos', async () => {
+    await request(server).get('/api/veiculos').set('Authorization', `Bearer ${token}`)
       .expect(200);
   });
 
-  test('PUT /api/marcas/:id', async () => {
-    const response = await request(server).get('/api/marcas').set('Authorization', `Bearer ${token}`)
+  test('PUT /api/veiculos/:id', async () => {
+    const response = await request(server).get('/api/veiculos').set('Authorization', `Bearer ${token}`)
       .expect(200);
       const id = response.body[0].id;
-    await request(server).put(`/api/marcas/${id}`).set('Authorization', `Bearer ${token}`)
+    await request(server).put(`/api/veiculos/${id}`).set('Authorization', `Bearer ${token}`)
       .send({
-        nome: 'Marca Teste Atualizada',
+        modelo: 'Veiculo Atualizado',
+        ano: 2026,
+        valor: 20000,
+        marca: 'Marca Atualizada'
       })
       .expect(200);
   });
 
-  test('DELETE /api/marcas/:id', async () => {
-    const response = await request(server).get('/api/marcas').set('Authorization', `Bearer ${token}`)
+  test('DELETE /api/veiculos/:id', async () => {
+    const response = await request(server).get('/api/veiculos').set('Authorization', `Bearer ${token}`)
       .expect(200);
     const id = response.body[0].id;
-    await request(server).delete(`/api/marcas/${id}`).set('Authorization', `Bearer ${token}`)
+    await request(server).delete(`/api/veiculos/${id}`).set('Authorization', `Bearer ${token}`)
       .expect(200);
   });
 });

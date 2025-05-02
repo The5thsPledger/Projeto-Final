@@ -15,7 +15,10 @@ const config: Config = {
   collectCoverage: true,
   coverageDirectory: './coverage',
   coverageProvider: 'v8',
-  setupFiles: ['./jest.setup.ts']
+  setupFiles: ['./jest.setup.ts'],
+  testEnvironmentOptions: {
+    NODE_ENV: 'test',
+  },
 };
 
 export default config;
