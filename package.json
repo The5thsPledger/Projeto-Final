@@ -28,7 +28,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "npm run docker:up --prefix backend && jest",
     "build": "npm-run-all --parallel build:backend build:frontend",
     "build:backend": "npm run build --prefix backend",
     "build:frontend": "npm run build --prefix frontend",
