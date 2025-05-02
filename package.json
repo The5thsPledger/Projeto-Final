@@ -52,6 +52,7 @@
     "@babel/preset-env": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
     "@jest/globals": "^29.7.0",
+    "@nestjs/cli": "^11.0.7",
     "@nestjs/testing": "^11.1.0",
     "@types/jest": "^29.5.14",
     "@types/supertest": "^6.0.3",
