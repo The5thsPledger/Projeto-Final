@@ -7,7 +7,6 @@ import { AtualizaUsuarioDTO } from './dto/AtualizaUsuario.dto';
 import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
 
 @Controller('/usuarios')
-@UseGuards(AutenticacaoGuard)
 @Catch()
 //@UseGuards(AutenticacaoGuard)
 export class UsuarioController {
@@ -15,7 +14,7 @@ export class UsuarioController {
 
   @Post()
   public async criaUsuario(
-    @Body() dadosDoUsuario: CriaUsuarioDTO,
+    @Body() { senha, ...dadosDoUsuario }: CriaUsuarioDTO,
     @Body('senha', HashearSenhaPipe) senhaHasheada: string
   ) {
     const usuarioCriado = await this.usuarioService.criaUsuario({

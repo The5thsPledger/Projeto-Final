@@ -11,7 +11,7 @@ import { QueryFailedError } from 'typeorm';
 
 @Catch()
 export class CustomExceptionFilter implements ExceptionFilter {
-  catch(exception, host: ArgumentsHost) {
+  catch(exception: any, host: ArgumentsHost) {
     const http = host.switchToHttp();
     const request = http.getRequest<Request>();
     const response = http.getResponse<Response>();
@@ -21,7 +21,7 @@ export class CustomExceptionFilter implements ExceptionFilter {
       exception instanceof GatewayTimeoutException ||
       exception instanceof RequestTimeoutException
     ) {
-      let exceptionResponse;
+      let exceptionResponse: any;
       let detalhe = "";
       if (exception instanceof HttpException) {
         exceptionResponse = exception.getResponse();
