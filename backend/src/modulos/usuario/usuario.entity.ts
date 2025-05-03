@@ -12,21 +12,21 @@ export class UsuarioEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'nome', length: 100, nullable: false })
+  @Column({ name: 'nome', type: 'varchar', length: 100, nullable: false })
   nome: string;
 
-  @Column({ name: 'email', length: 100, nullable: false })
+  @Column({ name: 'email', type: 'varchar', length: 100, nullable: false })
   email: string;
 
-  @Column({ name: 'senha', length: 255, nullable: false })
+  @Column({ name: 'senha', type: 'varchar', length: 255, nullable: false })
   senha: string;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: string;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: string;
+  updatedAt: Date;
 
   @DeleteDateColumn({ name: 'deleted_at' })
-  deletedAt: string;
+  deletedAt: Date;
 }
