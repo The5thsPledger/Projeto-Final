@@ -6,7 +6,7 @@ import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
 
 @Controller('/marcas')
 @Catch()
-@UseGuards(AutenticacaoGuard)
+//@UseGuards(AutenticacaoGuard)
 export class MarcaController {
   constructor (private marcaService: MarcaService) {}
 

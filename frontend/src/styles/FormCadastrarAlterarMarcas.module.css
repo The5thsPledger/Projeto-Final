@@ -1,0 +1,77 @@
+.container {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .titulo {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+  }
+  
+  .tabela th,
+  .tabela td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .formGrupo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .filtroCampo {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .campo {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .botoesFiltro {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+  
+  .botaoCadastrar,
+  .botaoExcluir,
+  .botaoIncluir {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .botaoCadastrar {
+    background-color: #007bff;
+  }
+  
+  .botaoExcluir {
+    background-color: #dc3545;
+  }
+  
+  .botaoIncluir {
+    background-color: #28a745;
+    margin-top: 20px;
+  }
+  
+  .botoesGrupo {
+    margin-top: 30px;
+    text-align: right;
+  }
+  

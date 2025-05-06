@@ -1,0 +1,65 @@
+.container {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+  
+  .titulo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+  }
+  
+  .tabela th,
+  .tabela td {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .tabela th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .botaoAlterar,
+  .botaoExcluir,
+  .botaoIncluir {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 0 0.25rem;
+  }
+  
+  .botaoAlterar {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .botaoExcluir {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .botaoIncluir {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .botoesGrupo {
+    text-align: right;
+    margin-top: 1rem;
+  }
+  

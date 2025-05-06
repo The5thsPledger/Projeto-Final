@@ -1,0 +1,48 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+  }
+  
+  .header {
+    background-color: #003f87;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .container {
+    display: flex;
+    flex: 1;
+  }
+  
+  .sidebar {
+    background-color: #f2f2f2;
+    width: 200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar button {
+    background: none;
+    border: none;
+    color: #000000;
+    text-align: left;
+    padding: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .sidebar button:hover {
+    text-decoration: underline;
+  }
+  
+  .main {
+    flex: 1;
+    padding: 40px;
+  }  

@@ -27,7 +27,7 @@ export class VeiculoService {
     return await this.veiculoRepository.find();
   }
 
-  private async buscaPorId(id: string) {
+  public async buscaPorId(id: string) {
     if (!isUUID(id)) {
       throw new NotFoundException('Veiculo não existe');
     }
