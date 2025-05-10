@@ -1,0 +1,28 @@
+/* frontend/src/styles/MenuLateral.module.css */
+.menu {
+    background-color: #1f2937; /* azul escuro */
+    padding: 20px;
+    height: 100vh;
+    width: 200px;
+    color: white;
+  }
+  
+  .lista {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .lista li {
+    margin-bottom: 15px;
+  }
+  
+  .lista a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .lista a:hover {
+    text-decoration: underline;
+  }
+  

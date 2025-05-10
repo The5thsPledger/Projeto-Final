@@ -1,10 +1,5 @@
-import FormVeiculo from '@/components/FormListarVeiculo';
+import FormListarVeiculos from '@/components/FormListarVeiculos';
 
-export default function CadastroVeiculoPage() {
-  return (
-    <main>
-      <h1>Cadastro de Veículo</h1>
-      <FormVeiculo />
-    </main>
-  );
-};
+export default function Page() {
+  return <FormListarVeiculos />;
+}

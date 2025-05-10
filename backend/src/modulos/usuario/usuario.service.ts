@@ -27,13 +27,13 @@ export class UsuarioService {
   public async listaUsuario() {
     const usuariosSalvos = await this.usuarioRepository.find();
     const usuariosLista = usuariosSalvos.map(
-      (usuario) => new ListaUsuarioDTO(usuario.id, usuario.nome)
+      (usuario) => new ListaUsuarioDTO(usuario.id, usuario.nome, usuario.email)
     );
 
     return usuariosLista;
   }
 
-  private async buscaPorId(id: string) {
+  public async buscaPorId(id: string) {
     if (!isUUID(id)) {
       throw new NotFoundException('Usuário não existe');
     }
@@ -50,15 +50,15 @@ export class UsuarioService {
   }
 
   public async atualizaUsuario(id: string, novosDados: AtualizaUsuarioDTO) {
-    const usuarioNovo: ListaUsuarioDTO = new ListaUsuarioDTO(id, novosDados.nome || '');
-    await this.buscaPorId(id);
     await this.usuarioRepository.update(id, novosDados);
-    return usuarioNovo;
+    const usuario = await this.buscaPorId(id);
+    return new ListaUsuarioDTO(usuario.id, usuario.nome, usuario.email);
+        
   }
 
   public async removeUsuario(id: string) {
     const usuario = await this.buscaPorId(id);
-    const usuarioExcluido: ListaUsuarioDTO = new ListaUsuarioDTO(id, usuario.nome);
+    const usuarioExcluido: ListaUsuarioDTO = new ListaUsuarioDTO(id, usuario.nome, usuario.email);
     await this.usuarioRepository.delete(id);
     return usuarioExcluido;
   }

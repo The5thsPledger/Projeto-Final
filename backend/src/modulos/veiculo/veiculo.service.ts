@@ -27,7 +27,7 @@ export class VeiculoService {
     return await this.veiculoRepository.find();
   }
 
-  private async buscaPorId(id: string) {
+  public async buscaPorId(id: string) {
     if (!isUUID(id)) {
       throw new NotFoundException('Veiculo não existe');
     }
@@ -74,5 +74,16 @@ export class VeiculoService {
     }
 
     return query.getMany();
+  }
+
+  public async resumoPorMarca() {
+    return await this.veiculoRepository
+      .createQueryBuilder('veiculo')
+      .leftJoin('veiculo.marca', 'marca')
+      .select('marca.nome', 'marca')
+      .addSelect('COUNT(veiculo.id)', 'quantidade')
+      .addSelect('SUM(veiculo.valor)', 'total')
+      .groupBy('marca.nome')
+      .getRawMany();
   }
 }

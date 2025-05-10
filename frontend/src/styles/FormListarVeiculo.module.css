@@ -1,0 +1,116 @@
+.container {
+  padding: 2rem;
+  background-color: #fff;
+}
+
+.titulo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #0d3b66;
+}
+
+.filtrosLinha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filtroItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.filtroItem label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.filtroItem input,
+.filtroItem select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 160px;
+}
+
+.filtroItem button {
+  margin-top: 4px;
+}
+
+.botaoFiltrar,
+.botaoLimpar {
+  padding: 8px 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botaoFiltrar {
+  background-color: #007bff;
+  color: white;
+}
+
+.botaoLimpar {
+  background-color: #6c757d;
+  color: white;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela th,
+.tabela td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.tabela th {
+  background-color: #f1f1f1;
+}
+
+.tabela tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.botaoAlterar,
+.botaoExcluir {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+.botaoAlterar {
+  background-color: #007bff;
+  color: white;
+}
+
+.botaoExcluir {
+  background-color: #e53935;
+  color: white;
+}
+
+.botoesGrupo {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.botaoIncluir {
+  background-color: #007e33;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}

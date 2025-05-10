@@ -3,6 +3,8 @@ import { MarcaService } from './marca.service';
 import { CriaMarcaDTO } from './dto/CriaMarca.dto';
 import { AtualizaMarcaDTO } from './dto/AtualizaMarca.dto';
 import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
+import { PreconditionFailedException } from '@nestjs/common';
+import { QueryFailedError } from 'typeorm';
 
 @Controller('/marcas')
 @Catch()
@@ -25,6 +27,16 @@ export class MarcaController {
     return await this.marcaService.listaMarca();
   }
 
+  @Get('/:id')
+  public async buscaMarcaPorId(@Param('id') id: string) {
+    const marca = await this.marcaService.buscaMarcaPorId(id);
+
+    return {
+      marca,
+      mensagem: 'Marca encontrada com sucesso'
+    };
+  }
+
   @Put('/:id')
   public async atualizaMarca(
     @Param('id') id: string,
@@ -42,18 +54,24 @@ export class MarcaController {
   }
 
   @Delete('/:id')
-  public async removeMarca(
-    @Param('id') id: string
-  ) {
-    const marcaRemovida = await this.marcaService.removeMarca(id);
-
-    return {
-      marca: marcaRemovida,
-      mensagem: 'Marca removida com sucesso'
+  public async removeMarca(@Param('id') id: string) {
+    try {
+      const marcaRemovida = await this.marcaService.removeMarca(id);
+      return {
+        marca: marcaRemovida,
+        mensagem: 'Marca removida com sucesso'
+      };
+    } catch (error) {
+      if (
+        error instanceof QueryFailedError &&
+        error.message.includes('violates foreign key constraint')
+      ) {
+        throw new PreconditionFailedException(
+          'Não é possível excluir esta marca porque há veículos associados a ela.'
+        );
+      }
+  
+      throw error;
     }
-  }
-
-  catch(excecao: unknown) {
-    console.error(excecao);
   }
 }

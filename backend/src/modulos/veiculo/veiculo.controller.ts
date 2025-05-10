@@ -1,4 +1,15 @@
-import { Body, Catch, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Catch,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { VeiculoService } from './veiculo.service';
 import { CriaVeiculoDTO } from './dto/CriaVeiculo.dto';
 import { AtualizaVeiculoDTO } from './dto/AtualizaVeiculo.dto';
@@ -13,15 +24,14 @@ export class VeiculoController {
   @UseGuards(AutenticacaoGuard)
   public async criaVeiculo(@Body() dadosDoVeiculo: CriaVeiculoDTO) {
     const veiculoCriado = await this.veiculoService.criaVeiculo(dadosDoVeiculo);
-
     return {
       veiculo: veiculoCriado,
-      mensagem: 'Veículo criado com sucesso'
-    }
+      mensagem: 'Veículo criado com sucesso',
+    };
   }
 
   @Get()
-  public async listaVeiculo(
+  public async listaOuFiltro(
     @Query('marca') idMarca?: string,
     @Query('min') min?: number,
     @Query('max') max?: number
@@ -31,13 +41,14 @@ export class VeiculoController {
       : await this.veiculoService.listaPorFiltro(idMarca, min, max);
   }
 
-  @Get()
-  public async listaPorFiltro(
-    @Query('marca') idMarca?: string,
-    @Query('min') min?: number,
-    @Query('max') max?: number
-  ) {
-    return await this.veiculoService.listaPorFiltro(idMarca, min, max);
+  @Get('/dashboard')
+  public async resumoDashboard() {
+    return this.veiculoService.resumoPorMarca();
+  }
+
+  @Get('/:id')
+  public async buscaPorId(@Param('id') id: string) {
+    return await this.veiculoService.buscaPorId(id);
   }
 
   @Put('/:id')
@@ -46,28 +57,21 @@ export class VeiculoController {
     @Param('id') id: string,
     @Body() novosDados: AtualizaVeiculoDTO
   ) {
-    const veiculoAtualizado = await this.veiculoService.atualizaVeiculo(
-      id,
-      novosDados
-    );
-
+    const veiculoAtualizado = await this.veiculoService.atualizaVeiculo(id, novosDados);
     return {
       veiculo: veiculoAtualizado,
-      mensagem: 'Veículo atualizado com sucesso'
-    }
+      mensagem: 'Veículo atualizado com sucesso',
+    };
   }
 
   @Delete('/:id')
   @UseGuards(AutenticacaoGuard)
-  public async removeVeiculo(
-    @Param('id') id: string
-  ) {
+  public async removeVeiculo(@Param('id') id: string) {
     const veiculoRemovido = await this.veiculoService.removeVeiculo(id);
-
     return {
       veiculo: veiculoRemovido,
-      mensagem: 'Veículo removido com sucesso'
-    }
+      mensagem: 'Veículo removido com sucesso',
+    };
   }
 
   catch(excecao: unknown) {

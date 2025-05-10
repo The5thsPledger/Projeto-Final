@@ -1,0 +1,88 @@
+/* Página com layout vertical */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+/* Cabeçalho azul escuro */
+.header {
+  background-color: #0d3b66;
+  color: white;
+  padding: 1rem;
+  font-size: 1.25rem;
+}
+
+/* Container principal com sidebar e formulário */
+.container {
+  display: flex;
+  flex: 1;
+}
+
+/* Sidebar lateral esquerda */
+.sidebar {
+  background-color: #f2f2f2;
+  width: 200px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: #000000;
+  text-align: left;
+  padding: 10px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  text-decoration: underline;
+}
+
+/* Formulário */
+.form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 40px;
+  gap: 20px;
+}
+
+.form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form input {
+  padding: 8px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  font-size: 0.85em;
+}
