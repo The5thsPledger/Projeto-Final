@@ -4,7 +4,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { UsuarioService } from '../usuario/usuario.service';
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 
 export interface UsuarioPayload {
@@ -23,7 +23,7 @@ export class AutenticacaoService {
     try {
       const usuario = await this.usuarioService.buscaPorEmail(email);
 
-      const usuarioFoiAutenticado = await bcrypt.compare(
+      const usuarioFoiAutenticado = await bcryptjs.compare(
         senhaInserida,
         usuario!.senha
       );
