@@ -29,7 +29,6 @@ export class MarcaService {
 
   private async buscaPorId(id: string) {
     if (!isUUID(id)) {
-      console.log('entrei aqui 1');
       throw new NotFoundException('Marca não existe');
     }
 

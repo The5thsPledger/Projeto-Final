@@ -3,6 +3,7 @@ import { UsuarioEntity } from 'backend/src/modulos/usuario/usuario.entity';
 import { HashearSenhaPipe } from 'backend/src/recursos/pipes/hashear-senha.pipe';
 import { ConfigService } from '@nestjs/config';
 import { v4 as uuidv4 } from 'uuid';
+import { AtualizaUsuarioDTO } from 'backend/src/modulos/usuario/dto/AtualizaUsuario.dto';
 
 dotenv.config({path: './backend/.env'});
 
@@ -49,8 +50,8 @@ export const mockUsuarioRepoditory = {
         ).transform(usuario.senha);
         return usuarioSalvo;
     }),
-    update: jest.fn().mockImplementation(async (id: string, novosDados: any) => {
-        const usuarioAtualizado = new UsuarioEntity();
+    update: jest.fn().mockImplementation(async (id: string, novosDados: AtualizaUsuarioDTO) => {
+        const usuarioAtualizado: Partial<UsuarioEntity> = new UsuarioEntity();
         usuarioAtualizado.id = id;
         usuarioAtualizado.nome = novosDados.nome;
         usuarioAtualizado.email = novosDados.email;
