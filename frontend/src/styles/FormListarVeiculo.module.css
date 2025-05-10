@@ -6,19 +6,16 @@
 .titulo {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   color: #0d3b66;
 }
 
-.filtroBox {
-  margin-bottom: 1.5rem;
-}
-
-.filtroLinha {
+.filtrosLinha {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .filtroItem {
@@ -36,17 +33,16 @@
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 160px;
 }
 
-.botoesFiltro {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
+.filtroItem button {
+  margin-top: 4px;
 }
 
 .botaoFiltrar,
 .botaoLimpar {
-  padding: 8px 12px;
+  padding: 8px 16px;
   font-weight: bold;
   border: none;
   border-radius: 4px;
@@ -54,19 +50,18 @@
 }
 
 .botaoFiltrar {
-  background-color: #0070f3;
+  background-color: #007bff;
   color: white;
 }
 
 .botaoLimpar {
-  background-color: #777;
+  background-color: #6c757d;
   color: white;
 }
 
 .tabela {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
 }
 
 .tabela th,
@@ -84,7 +79,7 @@
   background-color: #f9f9f9;
 }
 
-.botaoEditar,
+.botaoAlterar,
 .botaoExcluir {
   padding: 6px 12px;
   border: none;
@@ -94,8 +89,8 @@
   margin-right: 6px;
 }
 
-.botaoEditar {
-  background-color: #0070f3;
+.botaoAlterar {
+  background-color: #007bff;
   color: white;
 }
 
@@ -104,7 +99,7 @@
   color: white;
 }
 
-.rodape {
+.botoesGrupo {
   margin-top: 1.5rem;
   display: flex;
   justify-content: flex-end;

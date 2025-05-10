@@ -8,7 +8,7 @@ import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
 
 @Controller('/usuarios')
 @Catch()
-//@UseGuards(AutenticacaoGuard)
+@UseGuards(AutenticacaoGuard)
 export class UsuarioController {
   constructor(private usuarioService: UsuarioService) {}
 
@@ -23,7 +23,7 @@ export class UsuarioController {
     });
 
     return {
-      usario: new ListaUsuarioDTO(usuarioCriado.id, usuarioCriado.nome),
+      usario: new ListaUsuarioDTO(usuarioCriado.id, usuarioCriado.nome, usuarioCriado.email),
       mensagem: 'Usuário criado com sucesso'
     };
   }
@@ -32,6 +32,16 @@ export class UsuarioController {
   public async listaUsuario() {
     return await this.usuarioService.listaUsuario();
   }
+
+  @Get('/:id')
+public async buscaUsuario(@Param('id') id: string) {
+  const usuario = await this.usuarioService.buscaPorId(id);
+
+  return {
+    usuario,
+    mensagem: 'Usuário encontrado com sucesso'
+  };
+}
 
   @Put('/:id')
   public async atualizaUsuario(

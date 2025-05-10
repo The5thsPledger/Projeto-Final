@@ -52,9 +52,16 @@ export default function FormEditarVeiculos() {
 
   useEffect(() => {
     async function fetchMarcas() {
-      const res = await fetch('http://localhost:3000/api/marcas');
+      const token = localStorage.getItem('token');
+      const res = await fetch('http://localhost:3000/api/marcas', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       const data = await res.json();
-      setMarcas(data);
+      setMarcas(Array.isArray(data) ? data : data.marcas || []);
     }
 
     async function fetchVeiculo() {
@@ -64,7 +71,7 @@ export default function FormEditarVeiculos() {
         setValue('modelo', data.modelo);
         setValue('ano', data.ano);
         setValue('valor', data.valor);
-        setValue('marcaId', data.marca.id);
+        setValue('marcaId', String(data.marca.id));
       } else {
         alert('Erro ao buscar veículo');
         router.push('/');
@@ -79,9 +86,13 @@ export default function FormEditarVeiculos() {
     const { modelo, ano, valor, marcaId } = data;
 
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`http://localhost:3000/api/veiculos/${params.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           modelo,
           ano,
@@ -112,9 +123,9 @@ export default function FormEditarVeiculos() {
             <select {...register('marcaId')}>
               <option value="">Selecione uma marca</option>
               {marcas.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {m.nome}
-                </option>
+                <option key={m.id} value={String(m.id)}>
+                {m.nome}
+              </option>
               ))}
             </select>
             {errors.marcaId && <span className={styles.erro}>{errors.marcaId.message}</span>}

@@ -21,7 +21,7 @@ export class VeiculoController {
   constructor(private veiculoService: VeiculoService) {}
 
   @Post()
-  //@UseGuards(AutenticacaoGuard)
+  @UseGuards(AutenticacaoGuard)
   public async criaVeiculo(@Body() dadosDoVeiculo: CriaVeiculoDTO) {
     const veiculoCriado = await this.veiculoService.criaVeiculo(dadosDoVeiculo);
     return {
@@ -41,13 +41,18 @@ export class VeiculoController {
       : await this.veiculoService.listaPorFiltro(idMarca, min, max);
   }
 
+  @Get('/dashboard')
+  public async resumoDashboard() {
+    return this.veiculoService.resumoPorMarca();
+  }
+
   @Get('/:id')
   public async buscaPorId(@Param('id') id: string) {
     return await this.veiculoService.buscaPorId(id);
   }
 
   @Put('/:id')
-  //@UseGuards(AutenticacaoGuard)
+  @UseGuards(AutenticacaoGuard)
   public async atualizaVeiculo(
     @Param('id') id: string,
     @Body() novosDados: AtualizaVeiculoDTO
@@ -60,7 +65,7 @@ export class VeiculoController {
   }
 
   @Delete('/:id')
-  //@UseGuards(AutenticacaoGuard)
+  @UseGuards(AutenticacaoGuard)
   public async removeVeiculo(@Param('id') id: string) {
     const veiculoRemovido = await this.veiculoService.removeVeiculo(id);
     return {

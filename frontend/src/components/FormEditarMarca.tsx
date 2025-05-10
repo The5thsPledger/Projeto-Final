@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '@/components/Layout';
 import styles from '@/styles/FormCadastrarVeiculos.module.css';
 import { useForm } from 'react-hook-form';
@@ -20,6 +20,8 @@ export default function FormEditarMarca() {
   const router = useRouter();
   const params = useParams();
 
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+
   const {
     register,
     handleSubmit,
@@ -30,25 +32,56 @@ export default function FormEditarMarca() {
   });
 
   useEffect(() => {
+    if (!id) return;
+
     async function fetchMarca() {
-      const res = await fetch(`http://localhost:3000/api/marcas/${params.id}`);
-      if (res.ok) {
-        const data = await res.json();
-        setValue('nome', data.nome);
-      } else {
-        alert('Erro ao buscar marca');
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Sessão expirada. Faça login novamente.');
+        router.push('/entrar');
+        return;
+      }
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/marcas/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setValue('nome', data.marca.nome);
+        } else {
+          alert('Erro ao buscar marca');
+          router.push('/marcas/listar');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar marca:', error);
+        alert('Erro inesperado ao buscar marca');
         router.push('/marcas/listar');
       }
     }
 
     fetchMarca();
-  }, [params.id, router, setValue]);
+  }, [id, router, setValue]);
 
   const onSubmit = async (data: FormData) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Sessão expirada. Faça login novamente.');
+      router.push('/entrar');
+      return;
+    }
+
     try {
-      const res = await fetch(`http://localhost:3000/api/marcas/${params.id}`, {
+      const res = await fetch(`http://localhost:3000/api/marcas/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(data),
       });
 
@@ -56,7 +89,8 @@ export default function FormEditarMarca() {
         alert('Marca atualizada com sucesso!');
         router.push('/marcas/listar');
       } else {
-        alert('Erro ao atualizar marca');
+        const erro = await res.json();
+        alert(erro.mensagem || 'Erro ao atualizar marca');
       }
     } catch (error) {
       console.error('Erro ao atualizar marca:', error);

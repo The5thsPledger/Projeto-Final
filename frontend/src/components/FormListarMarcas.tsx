@@ -14,35 +14,45 @@ export default function FormListarMarcas() {
   const [marcas, setMarcas] = useState<Marca[]>([]);
   const router = useRouter();
 
-  async function carregarMarcas() {
-    try {
-      const response = await fetch('http://localhost:3000/api/marcas');
-      const data = await response.json();
-      setMarcas(data);
-    } catch (error) {
-      console.error('Erro ao carregar marcas:', error);
-    }
-  }
-
   useEffect(() => {
-    carregarMarcas();
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+  
+      fetch('http://localhost:3000/api/marcas', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setMarcas(Array.isArray(data) ? data : data.marcas || []);
+        })
+        .catch((error) => {
+          console.error('Erro ao carregar marcas:', error);
+        });
+    }
   }, []);
 
   const excluirMarca = async (id: string) => {
     if (!confirm('Deseja realmente excluir esta marca?')) return;
+  
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch(`http://localhost:3000/api/marcas/${id}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       });
-
+  
       if (res.ok) {
         alert('Marca excluída com sucesso!');
         setMarcas((prev) => prev.filter((m) => m.id !== id));
       } else {
-        alert('Erro ao excluir marca.');
+        const erro = await res.json();
+        alert(erro.mensagem || 'Erro ao excluir marca.');
       }
     } catch (error) {
       console.error('Erro ao excluir marca:', error);

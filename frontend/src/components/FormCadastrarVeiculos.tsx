@@ -49,27 +49,45 @@ export default function FormCadastrarVeiculos() {
   });
 
   useEffect(() => {
-    async function fetchMarcas() {
-      const res = await fetch('http://localhost:3000/api/marcas');
-      const data = await res.json();
-      setMarcas(data);
-    }
+    // Só executa no cliente
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
 
-    fetchMarcas();
+      if (token) {
+        fetch('http://localhost:3000/api/marcas', {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setMarcas(Array.isArray(data) ? data : data.marcas || []);
+          })
+          .catch((err) => {
+            console.error('Erro ao carregar marcas:', err);
+          });
+      }
+    }
   }, []);
 
   const onSubmit = async (data: FormData) => {
+    const token = localStorage.getItem('token');
+
     try {
       const response = await fetch('http://localhost:3000/api/veiculos', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           modelo: data.modelo,
           ano: data.ano,
           valor: data.valor,
           marca: {
-            id: data.marcaId
-          }
+            id: data.marcaId,
+          },
         }),
       });
 
@@ -77,7 +95,8 @@ export default function FormCadastrarVeiculos() {
         alert('Veículo cadastrado com sucesso!');
         router.push('/');
       } else {
-        alert('Erro ao cadastrar veículo.');
+        const erro = await response.json();
+        alert(erro.mensagem || 'Erro ao cadastrar veículo.');
       }
     } catch (error) {
       console.error('Erro ao cadastrar veículo:', error);
@@ -95,37 +114,49 @@ export default function FormCadastrarVeiculos() {
             <select {...register('marcaId')}>
               <option value="">Selecione uma marca</option>
               {marcas.map((m) => (
-                <option key={m.id} value={m.id}>
+                <option key={m.id} value={String(m.id)}>
                   {m.nome}
                 </option>
               ))}
             </select>
-            {errors.marcaId && <span className={styles.erro}>{errors.marcaId.message}</span>}
+            {errors.marcaId && (
+              <span className={styles.erro}>{errors.marcaId.message}</span>
+            )}
           </div>
 
           <div className={styles.grupo}>
             <label>Modelo:</label>
             <input type="text" {...register('modelo')} />
-            {errors.modelo && <span className={styles.erro}>{errors.modelo.message}</span>}
+            {errors.modelo && (
+              <span className={styles.erro}>{errors.modelo.message}</span>
+            )}
           </div>
 
           <div className={styles.grupo}>
             <label>Ano:</label>
             <input type="number" {...register('ano')} />
-            {errors.ano && <span className={styles.erro}>{errors.ano.message}</span>}
+            {errors.ano && (
+              <span className={styles.erro}>{errors.ano.message}</span>
+            )}
           </div>
 
           <div className={styles.grupo}>
             <label>Valor:</label>
             <input type="number" step="0.01" {...register('valor')} />
-            {errors.valor && <span className={styles.erro}>{errors.valor.message}</span>}
+            {errors.valor && (
+              <span className={styles.erro}>{errors.valor.message}</span>
+            )}
           </div>
 
           <div className={styles.botoes}>
             <button type="submit" className={styles.botaoCadastrar}>
               Cadastrar
             </button>
-            <button type="button" className={styles.botaoCancelar} onClick={() => router.push('/')}>
+            <button
+              type="button"
+              className={styles.botaoCancelar}
+              onClick={() => router.push('/')}
+            >
               Cancelar
             </button>
           </div>

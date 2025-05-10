@@ -28,10 +28,21 @@ export default function FormCadastrarAlterarMarcas() {
   });
 
   const onSubmit = async (data: FormData) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      alert('Sessão expirada. Faça login novamente.');
+      router.push('/entrar');
+      return;
+    }
+
     try {
       const res = await fetch('http://localhost:3000/api/marcas', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(data),
       });
 
@@ -39,7 +50,8 @@ export default function FormCadastrarAlterarMarcas() {
         alert('Marca cadastrada com sucesso!');
         router.push('/marcas/listar');
       } else {
-        alert('Erro ao cadastrar marca');
+        const erro = await res.json();
+        alert(erro.mensagem || 'Erro ao cadastrar marca');
       }
     } catch (error) {
       console.error('Erro ao cadastrar marca:', error);

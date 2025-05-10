@@ -38,7 +38,7 @@ export class AutenticacaoService {
       };
 
       return {
-        tokenAcesso: await this.jwtService.signAsync(payload)
+        access_token: await this.jwtService.signAsync(payload)
       };
     } catch (erro) {
       if (erro instanceof NotFoundException) {

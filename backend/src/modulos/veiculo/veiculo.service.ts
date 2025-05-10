@@ -75,4 +75,15 @@ export class VeiculoService {
 
     return query.getMany();
   }
+
+  public async resumoPorMarca() {
+    return await this.veiculoRepository
+      .createQueryBuilder('veiculo')
+      .leftJoin('veiculo.marca', 'marca')
+      .select('marca.nome', 'marca')
+      .addSelect('COUNT(veiculo.id)', 'quantidade')
+      .addSelect('SUM(veiculo.valor)', 'total')
+      .groupBy('marca.nome')
+      .getRawMany();
+  }
 }

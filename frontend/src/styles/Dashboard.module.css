@@ -1,0 +1,27 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 2rem;
+    justify-content: flex-start;
+  }
+  
+  .card {
+    border: 1px solid #000;
+    padding: 1rem;
+    width: 180px;
+    height: 120px;
+    position: relative;
+    font-family: Arial, sans-serif;
+  }
+  
+  .tituloMarca {
+    position: absolute;
+    top: -0.75rem;
+    left: 0.5rem;
+    background: white;
+    padding: 0 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  

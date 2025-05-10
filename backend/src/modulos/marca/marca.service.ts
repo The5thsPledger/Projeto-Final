@@ -57,4 +57,8 @@ export class MarcaService {
     await this.marcaRepository.delete(id);
     return marcaExcluida;
   }
+
+  public async buscaMarcaPorId(id: string) {
+    return await this.buscaPorId(id);
+  }
 }
