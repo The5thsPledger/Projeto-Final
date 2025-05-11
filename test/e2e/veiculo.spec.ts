@@ -104,9 +104,9 @@ describe('VeiculoController (e2e)', () => {
           senha: senhaTeste
         })
         .expect(201);
-      expect(response.body).toHaveProperty('tokenAcesso');
-      expect(response.body.tokenAcesso).toBeDefined();
-      token = response.body.tokenAcesso;
+      expect(response.body).toHaveProperty('access_token');
+      expect(response.body.access_token).toBeDefined();
+      token = response.body.access_token;
   }, 100000);
 
   test('POST /api/veiculos', async () => {
@@ -115,7 +115,7 @@ describe('VeiculoController (e2e)', () => {
         modelo: 'Veiculo Teste',
         ano: 2025,
         valor: 10000,
-        marca: 'Marca Teste',
+        marca: { id: uuidv4() },
       })
       .expect(201);
   });
@@ -134,7 +134,7 @@ describe('VeiculoController (e2e)', () => {
         modelo: 'Veiculo Atualizado',
         ano: 2026,
         valor: 20000,
-        marca: 'Marca Atualizada'
+        marca: { id: uuidv4() },
       })
       .expect(200);
   });

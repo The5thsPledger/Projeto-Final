@@ -34,6 +34,8 @@ export const mockUsuarioRepoditory = {
     }),
     findOneBy: jest.fn().mockImplementation(async (email: string) => {
         const usuario = new UsuarioEntity();
+        usuario.id = uuidv4();
+        usuario.nome = 'Usuario Teste';
         usuario.email = email;
         usuario.senha = await new HashearSenhaPipe(
         new ConfigService()

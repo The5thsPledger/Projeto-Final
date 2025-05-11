@@ -72,9 +72,9 @@ describe('UsuarioController (e2e)', () => {
           senha: senhaTeste
         })
         .expect(201);
-      expect(response.body).toHaveProperty('tokenAcesso');
-      expect(response.body.tokenAcesso).toBeDefined();
-      token = response.body.tokenAcesso;
+      expect(response.body).toHaveProperty('access_token');
+      expect(response.body.access_token).toBeDefined();
+      token = response.body.access_token;
   }, 100000);
 
   test('POST /api/usuarios', async () => {
